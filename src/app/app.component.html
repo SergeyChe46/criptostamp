@@ -6,8 +6,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th *ngFor="let item of columns|keyvalue:onCompare;let columnIndex=index">
-        <span (click)="sortByColumn(item.key);">{{item.value|titlecase}}</span>
+      <th *ngFor="let item of columns|keyvalue:onCompare">
+        <span (click)="sortByColumn(item.key)">{{item.value|titlecase}}</span>
         <br>
         <span (click)="getData(item.key)"
               class="delete-column">Delete</span>
@@ -16,22 +16,40 @@
   </thead>
   <tbody>
     <tr
-        *ngFor="let employee of employees | filterUser: employeeFullName |paginate : { itemsPerPage: tableSize, currentPage: page,totalItems: count}; let i = index">
-      <td>{{employee.isActive ? 'Yes':'No'}}</td>
-      <td>{{employee.name?.first ?? 'No first name'}}</td>
-      <td>{{employee.name?.last ?? 'No last name'}}</td>
-      <td>{{employee.age}}</td>
-      <td>{{employee.balance}}</td>
-      <td>{{employee.company}}</td>
-      <td>{{employee.email}}</td>
-      <td>{{employee.address}}</td>
-      <td>{{employee.tags}}</td>
-      <td>{{employee.favoriteFruit}}</td>
+        *ngFor="let employee of employees | filterUser: employeeFullName |paginate : { itemsPerPage: tableSize, currentPage: page,}; let i = index">
+      <td [style.visibility]="isVisible('isActive')">
+        {{employee.isActive ? 'Yes':'No'}}
+      </td>
+      <td>   {{employee.name?.first ?? 'No first name'}}
+      </td>
+      <td>
+        {{employee.name?.last ?? 'No last name'}}
+      </td>
+      <td [style.visibility]="isVisible('age')">
+        {{employee.age}}
+      </td>
+      <td [style.visibility]="isVisible('balance')">
+        {{employee.balance}}
+      </td>
+      <td [style.visibility]="isVisible('company')">
+        {{employee.company}}
+      </td>
+      <td [style.visibility]="isVisible('email')">
+        {{employee.email}}
+      </td>
+      <td [style.visibility]="isVisible('address')">
+        {{employee.address}}
+      </td>
+      <td [style.visibility]="isVisible('tags')">
+        {{employee.tags}}
+      </td>
+      <td [style.visibility]="isVisible('favoriteFruit')">
+        {{employee.favoriteFruit}}
+      </td>
     </tr>
   </tbody>
 </table>
 <div class="paginator">
-
   <select name="page"
           id="page"
           [(ngModel)]="tableSize">

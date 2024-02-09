@@ -10,6 +10,7 @@ import { EmployeesService } from './helpers/services/employees.service';
 })
 export class AppComponent {
   title = 'criptostamp';
+
   constructor(private emplService: EmployeesService) {
     this.employees = this.fetchEmployyes();
   }
@@ -17,7 +18,7 @@ export class AppComponent {
     return -1;
   }
 
-  rows: any;
+  //#region Select data for clear
   col: any;
   total: any = [];
 
@@ -29,15 +30,17 @@ export class AppComponent {
     }
     this.col = col;
   }
+  //#endregion
 
   employees: Employee[];
   employeeFullName: string = '';
   sortByAscending: boolean = true;
 
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 7;
-  tableSizes: any = [3, 6, 9, 12];
+isVisible(columnName:string){
+  return this.col == columnName?'hidden':'visible'
+}
+
+  //map keys to table column name
   columns = {
     isActive: 'Is Active',
     firstName: 'First Name',
@@ -50,11 +53,7 @@ export class AppComponent {
     tags: 'Tags',
     favoriteFruit: 'Favorite fruit',
   };
-
-  fetchEmployyes() {
-    return this.emplService.getAll();
-  }
-
+  //#region Sorting
   sortByColumn(columnName: string) {
     this.employees = this.employees.sort((a: any, b: any) => {
       return a[columnName] > b[columnName] ? 1 : -1;
@@ -62,10 +61,13 @@ export class AppComponent {
     this.sortByAscending = !this.sortByAscending;
     return this.sortByAscending ? this.employees : this.employees.reverse();
   }
+  //#endregion
 
-  hideColumn(column: number) {
-    console.log(column);
-  }
+  //#region Paginator
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [5, 10, 15, 20];
 
   onTableDataChange(event: any) {
     this.page = event;
@@ -75,5 +77,9 @@ export class AppComponent {
     this.tableSize = event.target.value;
     this.page = 1;
     this.employees = this.fetchEmployyes();
+  }
+  //#endregion
+  private fetchEmployyes() {
+    return this.emplService.getAll();
   }
 }
