@@ -6,57 +6,17 @@
 <table class="table">
   <thead>
     <tr>
-      <th>
-        <span (click)="sortByColumn('isActive')">Is Active</span>
+      <th *ngFor="let item of columns|keyvalue:onCompare;let columnIndex=index">
+        <span (click)="sortByColumn(item.key);">{{item.value|titlecase}}</span>
         <br>
-        <span class="delete-column">Delete</span>
-      </th>
-      <th>
-        First Name<br>
-        <span class="delete-column">Delete</span>
-      </th>
-      <th>
-        Last Name<br>
-        <span class="delete-column">Delete</span>
-      </th>
-      <th>
-        <span (click)="sortByColumn('age')">Age</span>
-        <br>
-        <span class="delete-column">Delete</span>
-      </th>
-      <th>
-        <span (click)="sortByColumn('balance')">Balance</span>
-        <br>
-        <span class="delete-column">Delete</span>
-      </th>
-      <th>
-        <span (click)="sortByColumn('company')">Company</span>
-        <br>
-        <span class="delete-column">Delete</span>
-      </th>
-      <th>
-        <span (click)="sortByColumn('email')">Email</span>
-        <br>
-        <span class="delete-column">Delete</span>
-      </th>
-      <th>
-        <span (click)="sortByColumn('address')">Address</span>
-        <br>
-        <span class="delete-column">Delete</span>
-      </th>
-      <th>
-        Tags<br><span class="delete-column">Delete</span>
-      </th>
-      <th>
-        <span (click)="sortByColumn('favoriteFruit')">Favorite fruit</span>
-        <br>
-        <span class="delete-column">Delete</span>
+        <span (click)="getData(item.key)"
+              class="delete-column">Delete</span>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr
-        *ngFor="let employee of employees | filterUser: employeeFullName |paginate : { itemsPerPage: tableSize, currentPage: page,totalItems: count}; let i = index ">
+        *ngFor="let employee of employees | filterUser: employeeFullName |paginate : { itemsPerPage: tableSize, currentPage: page,totalItems: count}; let i = index">
       <td>{{employee.isActive ? 'Yes':'No'}}</td>
       <td>{{employee.name?.first ?? 'No first name'}}</td>
       <td>{{employee.name?.last ?? 'No last name'}}</td>
