@@ -1,7 +1,7 @@
 <div class="filter">
   <input type="text"
+          [(ngModel)]="employeeFullName"
          placeholder="Employyes name">
-  <button>Back to base</button>
 </div>
 <table class="table">
   <thead>
@@ -19,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let employee of employees">
+    <tr *ngFor="let employee of employees | filterUser: employeeFullName">
       <td>{{employee.isActive ? 'Yes':'No'}}</td>
       <td>{{employee.name?.first ?? 'No first name'}}</td>
       <td>{{employee.name?.last ?? 'No last name'}}</td>

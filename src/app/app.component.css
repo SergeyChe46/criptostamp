@@ -71,7 +71,3 @@ thead tr th:hover {
 .filter input {
   width: 70%;
 }
-
-.filter button {
-  margin-left: 2%;
-}

@@ -13,6 +13,7 @@ export class AppComponent {
 
   employees: Employee[] = this.emplService.getAll();
   filteredEmployyes: Employee[] = this.employees;
+  employeeFullName: string = '';
 
   sortByColumn(
     columnName:
