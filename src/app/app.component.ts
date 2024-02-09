@@ -9,12 +9,21 @@ import { EmployeesService } from './helpers/services/employees.service';
 })
 export class AppComponent {
   title = 'criptostamp';
-  constructor(private emplService: EmployeesService) {}
+  constructor(private emplService: EmployeesService) {
+    this.employees = this.fetchEmployyes();
+  }
 
-  employees: Employee[] = this.emplService.getAll();
-  filteredEmployyes: Employee[] = this.employees;
+  employees: Employee[];
   employeeFullName: string = '';
 
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 7;
+  tableSizes: any = [3, 6, 9, 12];
+
+  fetchEmployyes() {
+    return this.emplService.getAll();
+  }
   sortByColumn(
     columnName:
       | 'isActive'
@@ -28,5 +37,15 @@ export class AppComponent {
     this.employees = this.employees.sort((a: any, b: any) => {
       return a[columnName] > b[columnName] ? 1 : -1;
     });
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.employees = this.fetchEmployyes();
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.employees = this.fetchEmployyes();
   }
 }

@@ -6,20 +6,41 @@
 <table class="table">
   <thead>
     <tr>
-      <th (click)="sortByColumn('isActive')">Is Active</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th (click)="sortByColumn('age')">Age</th>
-      <th (click)="sortByColumn('balance')">Balance</th>
-      <th (click)="sortByColumn('company')">Company</th>
-      <th (click)="sortByColumn('email')">Email</th>
-      <th (click)="sortByColumn('address')">Address</th>
-      <th>Tags</th>
-      <th (click)="sortByColumn('favoriteFruit')">Favorite fruit</th>
+      <th (click)="sortByColumn('isActive')">
+        Is Active<br><span class="delete-column">Delete</span>
+      </th>
+      <th>
+        First Name<br><span class="delete-column">Delete</span>
+      </th>
+      <th>
+        Last Name<br><span class="delete-column">Delete</span>
+      </th>
+      <th (click)="sortByColumn('age')">
+        Age<br><span class="delete-column">Delete</span>
+      </th>
+      <th (click)="sortByColumn('balance')">
+        Balance<br><span class="delete-column">Delete</span>
+      </th>
+      <th (click)="sortByColumn('company')">
+        Company<br><span class="delete-column">Delete</span>
+      </th>
+      <th (click)="sortByColumn('email')">
+        Email<br><span class="delete-column">Delete</span>
+      </th>
+      <th (click)="sortByColumn('address')">
+        Address<br><span class="delete-column">Delete</span>
+      </th>
+      <th>
+        Tags<br><span class="delete-column">Delete</span>
+      </th>
+      <th (click)="sortByColumn('favoriteFruit')">
+        Favorite fruit<br><span class="delete-column">Delete</span>
+      </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let employee of employees | filterUser: employeeFullName">
+    <tr
+        *ngFor="let employee of employees | filterUser: employeeFullName |paginate : { itemsPerPage: tableSize, currentPage: page,totalItems: count}; let i = index ">
       <td>{{employee.isActive ? 'Yes':'No'}}</td>
       <td>{{employee.name?.first ?? 'No first name'}}</td>
       <td>{{employee.name?.last ?? 'No last name'}}</td>
@@ -33,3 +54,15 @@
     </tr>
   </tbody>
 </table>
+<div class="paginator">
+
+  <select name="page"
+          id="page"
+          [(ngModel)]="tableSize">
+    <option *ngFor="let size of tableSizes">{{size}}</option>
+  </select>
+  <pagination-controls previousLabel="Prev"
+                       nextLabel="Next"
+                       (pageChange)="onTableDataChange($event)">
+  </pagination-controls>
+</div>

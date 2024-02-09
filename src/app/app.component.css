@@ -1,4 +1,5 @@
 .table {
+  table-layout: fixed;
   width: 100%;
   border: none;
   margin-bottom: 20px;
@@ -39,6 +40,7 @@
   padding: 10px 15px;
   font-size: 14px;
   vertical-align: top;
+  overflow: hidden;
 }
 
 .table tbody tr:nth-child(even) {
@@ -62,7 +64,13 @@ thead tr th:hover {
   color: red;
   transform: scale(1.1);
 }
+thead tr th .delete-column {
+  opacity: 0;
+}
 
+thead tr th .delete-column:hover {
+  opacity: 1;
+}
 .filter * {
   margin-bottom: 1%;
   font-size: large;
@@ -70,4 +78,14 @@ thead tr th:hover {
 
 .filter input {
   width: 70%;
+}
+.paginator {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.paginator pagination-controls {
+  display: table;
 }
