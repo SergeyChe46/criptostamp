@@ -15,6 +15,7 @@ export class AppComponent {
 
   employees: Employee[];
   employeeFullName: string = '';
+  sortByAscending: boolean = true;
 
   page: number = 1;
   count: number = 0;
@@ -37,6 +38,8 @@ export class AppComponent {
     this.employees = this.employees.sort((a: any, b: any) => {
       return a[columnName] > b[columnName] ? 1 : -1;
     });
+    this.sortByAscending = !this.sortByAscending;
+    return this.sortByAscending ? this.employees : this.employees.reverse();
   }
 
   onTableDataChange(event: any) {
