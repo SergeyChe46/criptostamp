@@ -2,6 +2,17 @@
   <input type="text"
           [(ngModel)]="employeeFullName"
          placeholder="Employyes name">
+<div class="paginator">
+  <select name="page"
+          id="page"
+          [(ngModel)]="tableSize">
+    <option *ngFor="let size of tableSizes">{{size}}</option>
+  </select>
+  <pagination-controls previousLabel="Prev"
+                       nextLabel="Next"
+                       (pageChange)="onTableDataChange($event)">
+  </pagination-controls>
+</div>
 </div>
 <table class="table">
   <thead>
@@ -49,14 +60,3 @@
     </tr>
   </tbody>
 </table>
-<div class="paginator">
-  <select name="page"
-          id="page"
-          [(ngModel)]="tableSize">
-    <option *ngFor="let size of tableSizes">{{size}}</option>
-  </select>
-  <pagination-controls previousLabel="Prev"
-                       nextLabel="Next"
-                       (pageChange)="onTableDataChange($event)">
-  </pagination-controls>
-</div>

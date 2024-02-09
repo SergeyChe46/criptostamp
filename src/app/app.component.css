@@ -71,13 +71,16 @@ thead tr th .delete-column {
 thead tr th .delete-column:hover {
   opacity: 1;
 }
+.filter {
+  display: flex;
+}
 .filter * {
   margin-bottom: 1%;
   font-size: large;
 }
 
 .filter input {
-  width: 70%;
+  width: 50%;
 }
 .paginator {
   width: 50%;
@@ -89,5 +92,3 @@ thead tr th .delete-column:hover {
 .paginator pagination-controls {
   display: table;
 }
-
-
